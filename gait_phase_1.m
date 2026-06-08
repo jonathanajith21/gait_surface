@@ -25,11 +25,9 @@ fprintf('Nat. freq  : %.2f Hz\n', fn);
 fprintf('Damping    : %.2f (%s)\n', zeta, kind);
 fprintf('Deflection : %.1f mm at rest\n', 1000*F_step/k);
 
-% m*x'' + c*x' + k*x = F, solved for x''
-eom = @(t,y) [y(2); (F_step - c*y(2) - k*y(1))/m];
-[t, y] = ode45(eom, [0 1], [0; 0]);
+[t, x] = simulate_msd(m, c, k, F_step, [0 1]);
 
-x_mm = y(:,1)*1000;
+x_mm = x*1000;
 x_ss = 1000*F_step/k;
 
 figure('Position',[100 100 800 450]);

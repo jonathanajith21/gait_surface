@@ -13,9 +13,7 @@ F_step = 750;
 wn_true   = sqrt(k/m);
 zeta_true = c/(2*sqrt(k*m));
 
-eom = @(t,y) [y(2); (F_step - c*y(2) - k*y(1))/m];
-[t, y] = ode45(eom, linspace(0,1,2000), [0; 0]);   % fixed grid for clean peak-finding
-x = y(:,1);
+[t, x] = simulate_msd(m, c, k, F_step, linspace(0,1,2000));   % fixed grid for clean peak-finding
 x_ss = F_step/k;
 
 % Method 1: peak overshoot maps to damping via Mp = exp(-pi*z/sqrt(1-z^2))
